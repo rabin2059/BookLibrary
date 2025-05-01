@@ -3,13 +3,12 @@ using BookLibrary.DTOs.Request;
 using BookLibrary.DTOs.Response;
 using BookLibrary.Model;
 using BookLibrary.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookLibrary.Controllers
 {
-    [Route("api/Auth")]
+    [Route("api/auth")]
     [ApiController]
    public class AuthController : ControllerBase
     {
@@ -54,7 +53,6 @@ namespace BookLibrary.Controllers
             // Add user to database
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
             // Return user DTO with token
             return new UserDTO
             {

@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\6fbcf8a2-9b12-48c4-b2a6-bb8b3aaeb507.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\6fbcf8a2-9b12-48c4-b2a6-bb8b3aaeb507.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\8b5d9f36-4fc4-4993-8949-c6d34ecda974.png",
+      "PackagePath": "staticwebassets\\uploads\\8b5d9f36-4fc4-4993-8949-c6d34ecda974.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookLibrary.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookLibrary.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BookLibrary.props",
+      "PackagePath": "build\\BookLibrary.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BookLibrary.props",
+      "PackagePath": "buildMultiTargeting\\BookLibrary.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BookLibrary.props",
+      "PackagePath": "buildTransitive\\BookLibrary.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
