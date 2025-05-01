@@ -42,8 +42,12 @@ public class CreateBookDTO
     // [Required(ErrorMessage = "Quantity is required")]
     // [Range(1, int.MaxValue, ErrorMessage = "Quantity must be greater than 0")]
     public int Quantity { get; set; }
-    public int Language { get; set; }
-    public int Format { get; set; }
+    public string Format { get; set; } = string.Empty;
+
+    public int Discount { get; set; } = 0;
+
+    public string Language { get; set; } = string.Empty;
+
 
     // [Required(ErrorMessage = "Image URL is required")]
     public string ImageUrl { get; set; } = string.Empty;

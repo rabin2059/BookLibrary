@@ -62,6 +62,9 @@ namespace BookLibrary.Controllers
                 Price = createBook.Price,
                 Quantity = createBook.Quantity,
                 ImageUrl = imageUrl,
+                Language = createBook.Language,
+                Discount = createBook.Discount,
+                Format = createBook.Format,
                 AvailableInLibrary = true,
                 IsOnSale = false
             };
@@ -93,6 +96,9 @@ namespace BookLibrary.Controllers
                 PublicationDate = b.PublicationDate,
                 Price = b.Price,
                 Quantity = b.Quantity,
+                Language = b.Language,
+                Discount = b.Discount,
+                Format = b.Format,
                 ImageUrl = b.ImageUrl,
                 AvailableInLibrary = b.AvailableInLibrary,
                 IsOnSale = b.IsOnSale
@@ -125,6 +131,9 @@ namespace BookLibrary.Controllers
                 Publisher = book.Publisher,
                 PublicationDate = book.PublicationDate,
                 Price = book.Price,
+                Language = book.Language,
+                Discount = book.Discount,
+                Format = book.Format,
                 Quantity = book.Quantity,
                 ImageUrl = book.ImageUrl,
                 AvailableInLibrary = book.AvailableInLibrary,
@@ -177,6 +186,9 @@ namespace BookLibrary.Controllers
             book.Genre = updateBook.Genre;
             book.ISBN = updateBook.ISBN;
             book.Description = updateBook.Description;
+            book.Language = updateBook.Language;
+            book.Discount = updateBook.Discount;
+            book.Format = updateBook.Format;
             book.Publisher = updateBook.Publisher;
             book.PublicationDate = updateBook.PublicationDate;
             book.Price = updateBook.Price;
