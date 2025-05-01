@@ -35,14 +35,13 @@ public class Book
     public string Publisher { get; set; }
 
 
-
     [Required(ErrorMessage = "Publication date is required")]
     [DataType(DataType.Date)]
 
     public DateTime PublicationDate { get; set; }
 
     [Required(ErrorMessage = "Price is required")]
-    public string Price { get; set; }
+    public int Price { get; set; }
 
     [Required(ErrorMessage = "Quantity is required")]
     [Range(1, int.MaxValue, ErrorMessage = "Quantity must be greater than 0")]
@@ -57,8 +56,6 @@ public class Book
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
-
 
 }
 

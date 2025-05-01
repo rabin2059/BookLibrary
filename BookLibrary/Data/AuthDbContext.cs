@@ -13,4 +13,5 @@ public class AuthDbContext : DbContext
 
 
         public DbSet<User> Users { get; set; }
+        
 }
