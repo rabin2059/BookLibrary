@@ -18,8 +18,9 @@ public class BookDTO
     public int Price { get; set; }
 
     public int Quantity { get; set; }
-    public int Language { get; set; }
-    public int Format { get; set; }
+    public string Language { get; set; }
+    public int Discount { get; set; } = 0;
+    public string Format { get; set; }
 
     public string ImageUrl { get; set; } = string.Empty;
 

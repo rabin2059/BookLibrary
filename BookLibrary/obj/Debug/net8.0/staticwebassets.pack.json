@@ -1,12 +1,20 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\6877a63f-d225-40bd-90fe-c3709479ec9f.png",
+      "PackagePath": "staticwebassets\\uploads\\6877a63f-d225-40bd-90fe-c3709479ec9f.png"
+    },
+    {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\6fbcf8a2-9b12-48c4-b2a6-bb8b3aaeb507.jpeg",
       "PackagePath": "staticwebassets\\uploads\\6fbcf8a2-9b12-48c4-b2a6-bb8b3aaeb507.jpeg"
     },
     {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\8b5d9f36-4fc4-4993-8949-c6d34ecda974.png",
       "PackagePath": "staticwebassets\\uploads\\8b5d9f36-4fc4-4993-8949-c6d34ecda974.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\a009d020-cbab-4f9f-8cd5-a5edb6da320a.png",
+      "PackagePath": "staticwebassets\\uploads\\a009d020-cbab-4f9f-8cd5-a5edb6da320a.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookLibrary.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

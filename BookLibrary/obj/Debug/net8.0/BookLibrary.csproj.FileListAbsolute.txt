@@ -1,5 +1,6 @@
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\appsettings.json
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.staticwebassets.runtime.json
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.staticwebassets.endpoints.json
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.exe
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.deps.json
@@ -8,6 +9,10 @@ C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrar
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.pdb
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Humanizer.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\System.Web.Cors.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\System.Web.Http.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\System.Web.Http.Cors.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -33,6 +38,8 @@ C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Npgsql.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
@@ -121,4 +128,3 @@ C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\refint\Boo
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\BookLibrary.pdb
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\BookLibrary.genruntimeconfig.cache
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\ref\BookLibrary.dll
-C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.staticwebassets.runtime.json
