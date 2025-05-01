@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ChevronDown, CircleUserRound, Heart } from "lucide-react";
 import images from "../../assets/assets";
+import SignUp from "../user/auth/SignUpSection";
+import SignIn from "../user/auth/SignInSection";
 
 const NavBar = () => {
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
 
   return (
     <div className="w-full">
@@ -54,64 +58,121 @@ const NavBar = () => {
               Home
             </NavLink>
 
-            <div className="relative">
-              <button
-                className="flex text-l font-bold items-center py-2 text-gray-700 hover:text-gray-900"
-                onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
-              >
-                Category
+            <div
+              className="relative"
+              onMouseEnter={() => setCategoryDropdownOpen(true)}
+              onMouseLeave={() => setCategoryDropdownOpen(false)}
+            >
+              <NavLink to="/course" className={({ isActive }) =>
+                `flex items-center py-2 px-3 text-l font-bold transition-colors ${
+                  isActive
+                    ? "bg-gray-700 text-web-primary rounded-full px-5"
+                    : "text-gray-700 hover:text-gray-900"
+                }`
+              }>
+                Course
                 <ChevronDown className="w-4 h-4 ml-1" />
-              </button>
+              </NavLink>
               {categoryDropdownOpen && (
-                <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                  <NavLink
-                    to="/category/fiction"
-                    className={({ isActive }) =>
-                      `block px-4 py-2 text-l font-bold transition-colors ${
-                        isActive
-                          ? "bg-gray-700 text-web-primary rounded-full px-5"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`
-                    }
-                  >
-                    Fiction
-                  </NavLink>
-                  <NavLink
-                    to="/category/non-fiction"
-                    className={({ isActive }) =>
-                      `block px-4 py-2 text-l font-bold transition-colors ${
-                        isActive
-                          ? "bg-gray-700 text-web-primary rounded-full px-5"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`
-                    }
-                  >
-                    Non-Fiction
-                  </NavLink>
-                  <NavLink
-                    to="/category/children"
-                    className={({ isActive }) =>
-                      `block px-4 py-2 text-l font-bold transition-colors ${
-                        isActive
-                          ? "bg-gray-700 text-web-primary rounded-full px-5"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`
-                    }
-                  >
-                    Children's Books
-                  </NavLink>
-                  <NavLink
-                    to="/category/academic"
-                    className={({ isActive }) =>
-                      `block px-4 py-2 text-l font-bold transition-colors ${
-                        isActive
-                          ? "bg-gray-700 text-web-primary rounded-full px-5"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`
-                    }
-                  >
-                    Academic
-                  </NavLink>
+                <div className="absolute w-[800px] mt-1 bg-white shadow-lg z-10 py-8 px-16">
+                  <div className="flex justify-between max-w-7xl mx-auto">
+                    <div className="w-1/4">
+                      <h3 className="text-md font-bold text-black mb-4">
+                        Category
+                      </h3>
+                      <NavLink
+                        to="/category/fiction"
+                        onClick={() => setCategoryDropdownOpen(false)}
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                      >
+                        Fiction
+                      </NavLink>
+                      <NavLink
+                        to="/category/non-fiction"
+                        onClick={() => setCategoryDropdownOpen(false)}
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                      >
+                        Non-Fiction
+                      </NavLink>
+                      <NavLink
+                        to="/category/children"
+                        onClick={() => setCategoryDropdownOpen(false)}
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                      >
+                        Children's Books
+                      </NavLink>
+                      <NavLink
+                        to="/category/academic"
+                        onClick={() => setCategoryDropdownOpen(false)}
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                      >
+                        Academic
+                      </NavLink>
+                    </div>
+                    <div className="w-1/4">
+                      <h3 className="text-md font-bold text-black mb-4">
+                        Top Sell
+                      </h3>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Top 100
+                      </a>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Best Authors
+                      </a>
+                    </div>
+                    <div className="w-1/4">
+                      <h3 className="text-md font-bold text-black mb-4">
+                        Most Popular
+                      </h3>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Trending Now
+                      </a>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Top Rated
+                      </a>
+                    </div>
+                    <div className="w-1/4">
+                      <h3 className="text-md font-bold text-black mb-4">
+                        Genres
+                      </h3>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Romance
+                      </a>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Mystery
+                      </a>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Sci-Fi
+                      </a>
+                      <a
+                        className="block text-sm text-gray-700 hover:text-black mb-2"
+                        href="#"
+                      >
+                        Fantasy
+                      </a>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -185,19 +246,30 @@ const NavBar = () => {
               to="/wishlist"
               className="p-2 rounded-full border border-gray-400"
             >
-              <Heart className="bg-transparent h-[32px] w-[32px]"/>
+              <Heart className="bg-transparent h-[32px] w-[32px]" />
             </NavLink>
-            <NavLink
-              to="/signin"
+            <button
+              onClick={() => setShowSignIn(true)}
               className="bg-web-primary text-l font-bold text-gray-700 py-2 border border-gray-800 px-4 rounded-full px-5 flex items-center space-x-1 transition-colors"
             >
               <span className="bg-transparent h-[24px]">Sign In</span>
-
               <CircleUserRound className="bg-transparent" />
-            </NavLink>
+            </button>
           </div>
         </div>
       </div>
+      {showSignIn && (
+        <SignIn
+          onClose={() => setShowSignIn(false)}
+          setShowSignUp={setShowSignUp}
+        />
+      )}
+      {showSignUp && (
+        <SignUp
+          onClose={() => setShowSignUp(false)}
+          setShowSignIn={setShowSignIn}
+        />
+      )}
     </div>
   );
 };
