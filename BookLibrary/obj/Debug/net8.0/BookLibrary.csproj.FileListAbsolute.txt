@@ -121,3 +121,4 @@ C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\refint\Boo
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\BookLibrary.pdb
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\BookLibrary.genruntimeconfig.cache
 C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\obj\Debug\net8.0\ref\BookLibrary.dll
+C:\Users\subin\Desktop\ADCW2\BookLibrary\BookLibrary\bin\Debug\net8.0\BookLibrary.staticwebassets.runtime.json

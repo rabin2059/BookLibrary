@@ -50,6 +50,12 @@ public class Book
     [Required(ErrorMessage = "Image URL is required")]
     public string ImageUrl { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "Format is required")]     
+    public string Format { get; set; }
+
+    [Required(ErrorMessage = "Language is required")]
+    public string Language { get; set; } 
+
     public bool AvailableInLibrary { get; set; } = true;
 
     public bool IsOnSale { get; set; } = false;

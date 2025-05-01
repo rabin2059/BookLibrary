@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using BookLibrary.Data;
 using BookLibrary.DTOs.Request;
+using BookLibrary.DTOs.Response;
 using BookLibrary.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,27 +14,40 @@ namespace BookLibrary.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly AdminDbContext _context;
+        private readonly AuthDbContext _context;
 
-        public BookController(AdminDbContext context)
+        public BookController(AuthDbContext context)
         {
             _context = context;
         }
 
 
-        [HttpGet("create")]
+        [HttpPost("create")]
         [Authorize(Policy = "RequireAdminRole")]
-
-        public async Task<ActionResult<CreateBookDTO>> CreateBook(CreateBookDTO createBook)
+        public async Task<IActionResult> CreateBook([FromForm] CreateBookDTO createBook, IFormFile image)
         {
-            if (await _context.Books.AnyAsync(b => b.Title == createBook.Title))
+            if (await _context.Books.AnyAsync(b => b.Title == createBook.Title || b.ISBN == createBook.ISBN))
             {
-                return BadRequest("Book already exists");
+                return BadRequest("Book with same title or ISBN already exists.");
             }
 
-            if (await _context.Books.AnyAsync(b => b.ISBN == createBook.ISBN))
+            // Upload the image
+            string imageUrl = null;
+            if (image != null && image.Length > 0)
             {
-                return BadRequest("Book already exists");
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                imageUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
             }
 
             var book = new Book
@@ -47,15 +62,14 @@ namespace BookLibrary.Controllers
                 PublicationDate = createBook.PublicationDate,
                 Price = createBook.Price,
                 Quantity = createBook.Quantity,
-                ImageUrl = createBook.ImageUrl,
+                ImageUrl = imageUrl,
                 AvailableInLibrary = true,
                 IsOnSale = false
             };
-            // Save to database
+
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
-            // Return success response
             return Ok(new
             {
                 message = "Book created successfully",
@@ -64,11 +78,141 @@ namespace BookLibrary.Controllers
         }
 
         [HttpGet("getallbooks")]
-        [Authorize(Policy = "RequireAdminRole")]
-        public async Task<ActionResult<List<Book>>> GetAllBooks()
+
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetAllBooks()
         {
             var books = await _context.Books.ToListAsync();
-            return Ok(books);
+            var bookDtos = books.Select(b => new BookDTO
+            {
+                BookId = b.BookId,
+                Title = b.Title,
+                Author = b.Author,
+                Genre = b.Genre,
+                ISBN = b.ISBN,
+                Description = b.Description,
+                Publisher = b.Publisher,
+                PublicationDate = b.PublicationDate,
+                Price = b.Price,
+                Quantity = b.Quantity,
+                ImageUrl = b.ImageUrl,
+                AvailableInLibrary = b.AvailableInLibrary,
+                IsOnSale = b.IsOnSale
+            }).ToList();
+
+            return Ok(bookDtos);
         }
+
+        [HttpGet("getbookbyid/{id}")]
+        [Authorize(Policy = "RequireAdminRole")]
+
+        public async Task<ActionResult<BookDTO>> GetUserById(Guid id)
+        {
+            var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if(userClaim == null) return Unauthorized("Invalid !! Token is missing");
+
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound("Book not found");
+            }
+            var bookDto = new BookDTO
+            {
+                BookId = book.BookId,
+                Title = book.Title,
+                Author = book.Author,
+                Genre = book.Genre,
+                ISBN = book.ISBN,
+                Description = book.Description,
+                Publisher = book.Publisher,
+                PublicationDate = book.PublicationDate,
+                Price = book.Price,
+                Quantity = book.Quantity,
+                ImageUrl = book.ImageUrl,
+                AvailableInLibrary = book.AvailableInLibrary,
+                IsOnSale = book.IsOnSale
+            };
+            return Ok(new
+            {
+                status = "success",
+                message = "Book found",
+                data = bookDto
+            });
+        }
+
+        [HttpPut("updatebook/{id}")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<IActionResult> UpdateBook(Guid id, [FromForm] CreateBookDTO updateBook, IFormFile image)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound("Book not found");
+            }
+
+            if (await _context.Books.AnyAsync(b => b.Title == updateBook.Title || b.ISBN == updateBook.ISBN))
+            {
+                return BadRequest("Book with same title or ISBN already exists.");
+            }
+
+            // Upload the image
+            string imageUrl = null;
+            if (image != null && image.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                var fileName = Guid.NewGuid() + Path.GetExtension(image.FileName);
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                imageUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
+            }
+
+            book.Title = updateBook.Title;
+            book.Author = updateBook.Author;
+            book.Genre = updateBook.Genre;
+            book.ISBN = updateBook.ISBN;
+            book.Description = updateBook.Description;
+            book.Publisher = updateBook.Publisher;
+            book.PublicationDate = updateBook.PublicationDate;
+            book.Price = updateBook.Price;
+            book.Quantity = updateBook.Quantity;
+            book.ImageUrl = imageUrl ?? book.ImageUrl; // Keep the old image URL if no new image is provided
+
+            _context.Books.Update(book);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Book updated successfully",
+                data = book
+            });
+        }
+        [HttpDelete("deletebook/{id}")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<IActionResult> DeleteBook(Guid id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
+            {
+                return NotFound("Book not found");
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Book deleted successfully"
+            });
+        }
+
     }
 }
