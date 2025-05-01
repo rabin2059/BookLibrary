@@ -1,11 +1,16 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "hbOEbPPNkQdXuOUCLfGxe8rcjq/YSvBUa9K+xawWibU=",
+=======
+  "Hash": "iLRg58jl/n/GHk/WtarKfRsgMgtxSx4jNrvGhhgdSQU=",
+>>>>>>> 1e828c13e0fc5d9273faa67ab5675888653cdf9b
   "Source": "BookLibrary",
   "BasePath": "_content/BookLibrary",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
+<<<<<<< HEAD
   "DiscoveryPatterns": [
     {
       "Name": "BookLibrary\\wwwroot",
@@ -225,4 +230,8 @@
       ]
     }
   ]
+=======
+  "DiscoveryPatterns": [],
+  "Assets": []
+>>>>>>> 1e828c13e0fc5d9273faa67ab5675888653cdf9b
 }
