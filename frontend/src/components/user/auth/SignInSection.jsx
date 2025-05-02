@@ -1,14 +1,43 @@
 import React, { useState } from "react";
 import { X, Eye, EyeOff } from "lucide-react";
+import apiClient from "../../../api/axios";
+import { toast } from "react-toastify";
 
 const SignInSection = ({ onClose, setShowSignUp }) => {
-  const [email, setEmail] = useState("");
+  const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ email, password });
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log({ username, password });
+      const payload = {
+        username,
+        password,
+      };
+      const { data } = await apiClient.post("/Auth/login", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(data);
+
+      if (data.status == 200) {
+        toast.success(data.message || "Login successful !!!!!");
+        onClose();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.user.role)
+        window.dispatchEvent(new Event("storage"));
+        if (data.user.role === "Admin") {
+          window.location.href = "/admin";
+        }
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data || "An unexpected error occurred during login.";
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -27,26 +56,24 @@ const SignInSection = ({ onClose, setShowSignUp }) => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email Field */}
+          {/* username Field */}
           <div className="relative">
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="username"
+              id="username"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
               className="peer w-full px-4 pt-5 pb-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300"
               placeholder=" "
               required
             />
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="absolute left-4 top-2 text-sm text-blue-500 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
             >
-              Email
+              username
             </label>
           </div>
-
-          
 
           {/* Password Field */}
           <div className="relative">
@@ -77,8 +104,6 @@ const SignInSection = ({ onClose, setShowSignUp }) => {
               )}
             </button>
           </div>
-
-          
 
           {/* Sign In Button */}
           <button

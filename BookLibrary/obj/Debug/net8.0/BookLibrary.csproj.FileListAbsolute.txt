@@ -241,3 +241,9 @@ C:/Users/subin/Desktop/ADCW2/BookLibrary/BookLibrary/obj/Debug/net8.0/ref/BookLi
 /Users/rabinrai/Desktop/BookLibrary/BookLibrary/obj/Debug/net8.0/BookLibrary.pdb
 /Users/rabinrai/Desktop/BookLibrary/BookLibrary/obj/Debug/net8.0/BookLibrary.genruntimeconfig.cache
 /Users/rabinrai/Desktop/BookLibrary/BookLibrary/obj/Debug/net8.0/ref/BookLibrary.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/System.Web.Cors.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/System.Net.Http.Formatting.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/System.Web.Http.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/System.Web.Http.Cors.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/rabinrai/Desktop/BookLibrary/BookLibrary/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ChevronDown, CircleUserRound, Heart } from "lucide-react";
 import images from "../../assets/assets";
@@ -9,6 +9,20 @@ const NavBar = () => {
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLogin = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+
+    checkLogin();
+
+    window.addEventListener("storage", checkLogin);
+    return () => window.removeEventListener("storage", checkLogin);
+  }, []);
 
   return (
     <div className="w-full">
@@ -248,13 +262,34 @@ const NavBar = () => {
             >
               <Heart className="bg-transparent h-[32px] w-[32px]" />
             </NavLink>
-            <button
-              onClick={() => setShowSignIn(true)}
-              className="bg-web-primary text-l font-bold text-gray-700 py-2 border border-gray-800 px-4 rounded-full px-5 flex items-center space-x-1 transition-colors"
-            >
-              <span className="bg-transparent h-[24px]">Sign In</span>
-              <CircleUserRound className="bg-transparent" />
-            </button>
+            {isLoggedIn ? (
+              <>
+                <NavLink
+                  to="/profile"
+                  className="p-2 rounded-full border border-gray-400"
+                >
+                  <CircleUserRound className="bg-transparent h-[32px] w-[32px]" />
+                </NavLink>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("role");
+                    setIsLoggedIn(false);
+                  }}
+                  className="bg-red-500 text-white py-2 px-4 rounded-full"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setShowSignIn(true)}
+                className="bg-web-primary text-l font-bold text-gray-700 py-2 border border-gray-800 px-4 rounded-full px-5 flex items-center space-x-1 transition-colors"
+              >
+                <span className="bg-transparent h-[24px]">Sign In</span>
+                <CircleUserRound className="bg-transparent" />
+              </button>
+            )}
           </div>
         </div>
       </div>

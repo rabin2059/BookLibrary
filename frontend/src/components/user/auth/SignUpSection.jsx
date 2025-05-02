@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { X, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import apiClient from "../../../api/axios";
+import { toast } from "react-toastify";
 
 const SignUpSection = ({ onClose, setShowSignIn }) => {
   const [email, setEmail] = useState("");
@@ -10,9 +12,25 @@ const SignUpSection = ({ onClose, setShowSignIn }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ email, username, password, confirmPassword });
+    const payload = {
+      email,
+      username,
+      password,
+      confirmPassword,
+    };
+    const { data } = await apiClient.post("/Auth/register", payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (data.success) {
+      toast.success(data.message);
+      setShowSignIn(true);
+      onClose();
+    }
   };
 
   return (
@@ -25,9 +43,7 @@ const SignUpSection = ({ onClose, setShowSignIn }) => {
             <X className="w-6 h-6 text-gray-500 hover:text-gray-700" />
           </button>
         </div>
-        <p className="text-gray-500 mb-6">
-          Please create account to login
-        </p>
+        <p className="text-gray-500 mb-6">Please create account to login</p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -11,7 +11,7 @@ namespace BookLibrary.Controllers
 {
     [Route("api/Auth")]
     [ApiController]
-   public class AuthController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly AuthDbContext _context;
         private readonly TokenServices _token;
@@ -21,11 +21,12 @@ namespace BookLibrary.Controllers
             _context = context;
             _token = token;
         }
-    
 
-    [HttpPost("register")]
-    public async Task<ActionResult<UserDTO>> Register(RegisterDTO register){
-         // Check if username already exists
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDTO>> Register(RegisterDTO register)
+        {
+            // Check if username already exists
             if (await _context.Users.AnyAsync(u => u.Username == register.Username))
             {
                 return BadRequest("Username is already taken");
@@ -56,17 +57,26 @@ namespace BookLibrary.Controllers
             await _context.SaveChangesAsync();
 
             // Return user DTO with token
-            return new UserDTO
+            return Ok(new
             {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Role = user.Role
-            };
-    }
-    
 
-     // POST: api/Auth/login
+                success = true,
+                status = 200,
+                message = "Register successful",
+                user = new UserDTO
+                {
+
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Role = user.Role
+                }
+            }
+            );
+        }
+
+
+        // POST: api/Auth/login
         [HttpPost("login")]
         public async Task<ActionResult<object>> Login(LoginDTO loginDto)
         {
@@ -91,8 +101,11 @@ namespace BookLibrary.Controllers
             // Return token and user information
             return Ok(new
             {
-                Token = token,
-                User = new UserDTO
+                success = true,
+                status = 200,
+                message = "Login successful",
+                token = token,
+                user = new UserDTO
                 {
                     Id = user.Id,
                     Username = user.Username,
@@ -101,5 +114,5 @@ namespace BookLibrary.Controllers
                 }
             });
         }
-}
+    }
 }
