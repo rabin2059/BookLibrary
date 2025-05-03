@@ -1,6 +1,7 @@
 {
   "Version": 1,
   "Hash": "soEUv9as7bsENqs8Aks7hhEoZj7RDXkgJqZ1hU34rO8=",
+
   "Source": "BookLibrary",
   "BasePath": "_content/BookLibrary",
   "Mode": "Default",
@@ -278,11 +279,6 @@
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
       "Fingerprint": "5u280nzncn",
       "Integrity": "o5MW0Nmv+VT/Bve99/+Zmg9GbutFy6Jk5E7Q2DfWwKw=",
       "CopyToOutputDirectory": "Never",
@@ -299,11 +295,6 @@
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
       "Fingerprint": "q8xbb6y8bn",
       "Integrity": "CmBbHH/nnmQE8AaoUZR9Qrcme4jAmoXGlNe8qGPEsKI=",
       "CopyToOutputDirectory": "Never",
@@ -341,11 +332,6 @@
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
       "Fingerprint": "3o01rkk4yl",
       "Integrity": "XTs6C96HNWL9q0P7lOmPoQZMMqdMwjNIMgBP3O5MWNM=",
       "CopyToOutputDirectory": "Never",
@@ -362,16 +348,19 @@
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
+
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+
       "Fingerprint": "r67ejg6p0z",
       "Integrity": "4+61sgU9rX5l4/w3sJ4t4mFwG14CvsmMmcGG35CqUEA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\a009d020-cbab-4f9f-8cd5-a5edb6da320a.png"
+
     },
     {
       "Identity": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\c2679812-47b1-4cf0-b47d-c2aa79f21763.png",
@@ -1974,6 +1963,7 @@
           "Value": "sha256-uCZl4n6Q0wsKYGbMuXQdHF/4lNF87QpJNYafFMQ4xTw="
         }
       ]
+
     }
   ]
 }
