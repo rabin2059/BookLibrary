@@ -5,7 +5,7 @@
 namespace BookLibrary.Migrations
 {
     /// <inheritdoc />
-    public partial class bookUpdate3 : Migration
+    public partial class addTocart33 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

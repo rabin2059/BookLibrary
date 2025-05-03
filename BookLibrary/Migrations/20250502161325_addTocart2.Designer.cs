@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20250501114450_bookUpdate")]
-    partial class bookUpdate
+    [Migration("20250502161325_addTocart2")]
+    partial class addTocart2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,13 @@ namespace BookLibrary.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<int>("Discount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Format")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("text");
@@ -61,6 +68,10 @@ namespace BookLibrary.Migrations
 
                     b.Property<bool>("IsOnSale")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
@@ -87,6 +98,33 @@ namespace BookLibrary.Migrations
                     b.HasKey("BookId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.CartItem", b =>
+                {
+                    b.Property<Guid>("CartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CartItemId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.User", b =>
@@ -121,6 +159,68 @@ namespace BookLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("BookmarkedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Whitelists");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.CartItem", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId");
+
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany("Whitelists")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany("Whitelists")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Book", b =>
+                {
+                    b.Navigation("Whitelists");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.User", b =>
+                {
+                    b.Navigation("Whitelists");
                 });
 #pragma warning restore 612, 618
         }

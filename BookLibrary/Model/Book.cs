@@ -68,5 +68,7 @@ public class Book
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+    public ICollection<WhiteList> Whitelists { get; set; }
+    public ICollection<CartItem> AddtoCarts { get; set; }
 }
 

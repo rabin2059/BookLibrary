@@ -54,13 +54,18 @@ namespace BookLibrary.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             // Return user DTO with token
-            return new UserDTO
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Role = user.Role
-            };
+            return Ok(new{
+                status = "success",
+                message = "User Registered successful",
+                statusCode = 200,
+                user = new UserDTO
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Role = user.Role
+                },
+            });
     }
     
 
@@ -89,6 +94,9 @@ namespace BookLibrary.Controllers
             // Return token and user information
             return Ok(new
             {
+                status = "success",
+                message = "Login successful",
+                statusCode = 200,
                 Token = token,
                 User = new UserDTO
                 {
