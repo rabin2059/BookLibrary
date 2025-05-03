@@ -27,4 +27,6 @@ public class BookDTO
     public bool AvailableInLibrary { get; set; } = true;
 
     public bool IsOnSale { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    
 }

@@ -3,6 +3,7 @@ using System;
 using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    partial class AuthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502161553_addTocart33")]
+    partial class addTocart33
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,10 +106,7 @@ namespace BookLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("BookId1")
+                    b.Property<Guid?>("BookId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("PricePerUnit")
@@ -115,14 +115,12 @@ namespace BookLibrary.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("CartItemId");
 
                     b.HasIndex("BookId");
-
-                    b.HasIndex("BookId1");
 
                     b.HasIndex("UserId");
 
@@ -185,19 +183,11 @@ namespace BookLibrary.Migrations
                 {
                     b.HasOne("BookLibrary.Model.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookLibrary.Model.Book", null)
-                        .WithMany("AddtoCarts")
-                        .HasForeignKey("BookId1");
+                        .HasForeignKey("BookId");
 
                     b.HasOne("BookLibrary.Model.User", "User")
-                        .WithMany("AddtoCarts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Book");
 
@@ -225,15 +215,11 @@ namespace BookLibrary.Migrations
 
             modelBuilder.Entity("BookLibrary.Model.Book", b =>
                 {
-                    b.Navigation("AddtoCarts");
-
                     b.Navigation("Whitelists");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.User", b =>
                 {
-                    b.Navigation("AddtoCarts");
-
                     b.Navigation("Whitelists");
                 });
 #pragma warning restore 612, 618

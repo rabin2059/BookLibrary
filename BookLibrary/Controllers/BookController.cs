@@ -158,11 +158,6 @@ namespace BookLibrary.Controllers
                 return NotFound("Book not found");
             }
 
-            if (await _context.Books.AnyAsync(b => b.Title == updateBook.Title || b.ISBN == updateBook.ISBN))
-            {
-                return BadRequest("Book with same title or ISBN already exists.");
-            }
-
             // Upload the image
             string imageUrl = null;
             if (image != null && image.Length > 0)
@@ -182,9 +177,9 @@ namespace BookLibrary.Controllers
                 imageUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
             }
 
-            book.Title = updateBook.Title;
-            book.Author = updateBook.Author;
-            book.Genre = updateBook.Genre;
+            book.Title = updateBook.Title ?? book.Title;
+            book.Author = updateBook.Author ?? book.Author;
+            book.Genre = updateBook.Genre ?? book.Genre;
             book.ISBN = updateBook.ISBN;
             book.Description = updateBook.Description;
             book.Language = updateBook.Language;

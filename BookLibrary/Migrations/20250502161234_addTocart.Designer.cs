@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20250501173421_bookUpdate4")]
-    partial class bookUpdate4
+    [Migration("20250502161234_addTocart")]
+    partial class addTocart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,33 @@ namespace BookLibrary.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("BookLibrary.Model.CartItem", b =>
+                {
+                    b.Property<Guid>("CartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CartItemId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("BookLibrary.Model.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -132,6 +159,72 @@ namespace BookLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("BookmarkedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Whitelists");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.CartItem", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany("Whitelists")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany("Whitelists")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Book", b =>
+                {
+                    b.Navigation("Whitelists");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.User", b =>
+                {
+                    b.Navigation("Whitelists");
                 });
 #pragma warning restore 612, 618
         }
