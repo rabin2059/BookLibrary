@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets\\uploads\\07c86456-7d1c-4819-be45-f28c9127a16f.png"
     },
     {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\13c1c37a-2da0-4fad-9714-77d0953a5fe0.png",
+      "PackagePath": "staticwebassets\\uploads\\13c1c37a-2da0-4fad-9714-77d0953a5fe0.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\247f4ea8-4124-41e9-adc0-d233440aaf27.png",
+      "PackagePath": "staticwebassets\\uploads\\247f4ea8-4124-41e9-adc0-d233440aaf27.png"
+    },
+    {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\25eae08a-a918-4b58-b26b-6018afe7749d.png",
       "PackagePath": "staticwebassets\\uploads\\25eae08a-a918-4b58-b26b-6018afe7749d.png"
     },
@@ -31,6 +39,10 @@
     {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\37aa7e13-2c1c-475c-afe2-651ab30f8c8c.png",
       "PackagePath": "staticwebassets\\uploads\\37aa7e13-2c1c-475c-afe2-651ab30f8c8c.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\38e4380a-26a1-4859-b5d0-892c17606c5a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\38e4380a-26a1-4859-b5d0-892c17606c5a.jpg"
     },
     {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\43729cf6-723e-4d44-be5d-d31e13c06e9d.png",
@@ -69,12 +81,32 @@
       "PackagePath": "staticwebassets\\uploads\\a009d020-cbab-4f9f-8cd5-a5edb6da320a.png"
     },
     {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\bf52c8c8-d381-4908-802e-1cbc9d478e72.png",
+      "PackagePath": "staticwebassets\\uploads\\bf52c8c8-d381-4908-802e-1cbc9d478e72.png"
+    },
+    {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\c2679812-47b1-4cf0-b47d-c2aa79f21763.png",
       "PackagePath": "staticwebassets\\uploads\\c2679812-47b1-4cf0-b47d-c2aa79f21763.png"
     },
     {
       "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\d49287d0-499f-47dd-aced-bf1315f8ded3.jpg",
       "PackagePath": "staticwebassets\\uploads\\d49287d0-499f-47dd-aced-bf1315f8ded3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\d6275a83-c626-42e6-a148-a7579ef92ca6.png",
+      "PackagePath": "staticwebassets\\uploads\\d6275a83-c626-42e6-a148-a7579ef92ca6.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\db6e112c-6bc0-46e8-b8b2-512003263650.png",
+      "PackagePath": "staticwebassets\\uploads\\db6e112c-6bc0-46e8-b8b2-512003263650.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\dd3c912e-67ea-4f00-a42a-623e24b2d80a.png",
+      "PackagePath": "staticwebassets\\uploads\\dd3c912e-67ea-4f00-a42a-623e24b2d80a.png"
+    },
+    {
+      "Id": "C:\\Users\\subin\\Desktop\\ADCW2\\BookLibrary\\BookLibrary\\wwwroot\\uploads\\f1b7523f-942e-4380-be5b-ab1d793f543d.png",
+      "PackagePath": "staticwebassets\\uploads\\f1b7523f-942e-4380-be5b-ab1d793f543d.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BookLibrary.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

@@ -176,7 +176,7 @@ namespace BookLibrary.Controllers
 
         [HttpGet("checkWishlist/{bookId}")]
         [Authorize(Policy = "RequireUserRole")]
-         public async Task<IActionResult> CheckWishlist(Guid bookId)
+        public async Task<IActionResult> CheckWishlist(Guid bookId)
         {
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -206,10 +206,10 @@ namespace BookLibrary.Controllers
                     message = "Book is in the wishlist"
                 });
             }
-    }
-        [HttpPut("remove/{bookId}")]
+        }
+        [HttpDelete("remove/{bookId}")]
         [Authorize(Policy = "RequireUserRole")]
-         public async Task<IActionResult> RemoveWishlist(Guid bookId)
+        public async Task<IActionResult> RemoveWishlist(Guid bookId)
         {
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -230,15 +230,15 @@ namespace BookLibrary.Controllers
                     message = "Book is not in the wishlist"
                 });
             }
-            
+
             _context.Whitelists.Remove(wishlist);
             await _context.SaveChangesAsync();
             return Ok(new
             {
                 status = true,
-            statusCode = 200,
+                statusCode = 200,
                 message = "Book removed from wishlist successfully"
             });
+        }
     }
-}
 }

@@ -24,6 +24,8 @@ public class User
     public string Role { get; set; } = "User"; 
     public bool IsVerified { get; set; } = true; 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public int CompleteOrderCount { get; set; } = 0;
+
 
     public ICollection<WhiteList> Whitelists { get; set; }
     public ICollection<CartItem> AddtoCarts { get; set; }

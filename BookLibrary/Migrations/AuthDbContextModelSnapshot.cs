@@ -22,6 +22,41 @@ namespace BookLibrary.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BookLibrary.Model.Announcement", b =>
+                {
+                    b.Property<Guid>("AnnouncementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPinned")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TextColor")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("AnnouncementId");
+
+                    b.ToTable("Announcements");
+                });
+
             modelBuilder.Entity("BookLibrary.Model.Book", b =>
                 {
                     b.Property<Guid>("BookId")
@@ -106,9 +141,6 @@ namespace BookLibrary.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BookId1")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("PricePerUnit")
                         .HasColumnType("numeric");
 
@@ -122,11 +154,71 @@ namespace BookLibrary.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("BookId1");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Order", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ClaimCode")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("DiscountRate")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("FinalTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("OriginalTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.OrderItem", b =>
+                {
+                    b.Property<Guid>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.User", b =>
@@ -134,6 +226,9 @@ namespace BookLibrary.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<int>("CompleteOrderCount")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -184,14 +279,10 @@ namespace BookLibrary.Migrations
             modelBuilder.Entity("BookLibrary.Model.CartItem", b =>
                 {
                     b.HasOne("BookLibrary.Model.Book", "Book")
-                        .WithMany()
+                        .WithMany("AddtoCarts")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BookLibrary.Model.Book", null)
-                        .WithMany("AddtoCarts")
-                        .HasForeignKey("BookId1");
 
                     b.HasOne("BookLibrary.Model.User", "User")
                         .WithMany("AddtoCarts")
@@ -202,6 +293,36 @@ namespace BookLibrary.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Order", b =>
+                {
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.OrderItem", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Model.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
@@ -228,6 +349,11 @@ namespace BookLibrary.Migrations
                     b.Navigation("AddtoCarts");
 
                     b.Navigation("Whitelists");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.User", b =>
