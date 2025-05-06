@@ -90,6 +90,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddScoped<TokenServices>();
+builder.Services.AddTransient<IEmailService,EmailServices>();
+
 
 var app = builder.Build();
 

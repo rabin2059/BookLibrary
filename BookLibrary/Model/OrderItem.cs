@@ -21,6 +21,9 @@ public class OrderItem
     [ForeignKey("BookId")]
     public Book? Book { get; set; }
 
+    [ForeignKey("UserId")]
+    public  Guid UserId { get; set; }
+
     [Required]
     public int Quantity { get; set; }
 

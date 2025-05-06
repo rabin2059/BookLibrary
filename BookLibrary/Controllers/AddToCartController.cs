@@ -118,6 +118,88 @@ namespace BookLibrary.Controllers
             });
         }
 
+        [HttpDelete("remove/{cartItemId}")]
+        [Authorize(Policy = "RequireUserRole")]
+        public async Task<IActionResult> RemoveCartItem(Guid cartItemId)
+        {
+            var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userClaim == null)
+                return Unauthorized("Invalid! Token is missing");
+
+            var userId = Guid.Parse(userClaim.Value);
+
+            var cartItem = await _context.CartItems
+                .FirstOrDefaultAsync(c => c.CartItemId == cartItemId && c.UserId == userId);
+
+            if (cartItem == null)
+                return NotFound("Cart item not found");
+
+            _context.CartItems.Remove(cartItem);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Cart item removed successfully",
+                statusCode = 200
+            });
+        }
+
+        [HttpPut("update/{cartItemId}")]
+        [Authorize(Policy = "RequireUserRole")]
+        public async Task<IActionResult> UpdateCartItem(Guid cartItemId, CreateCartItemDTO updateCartItem)
+        {
+            var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userClaim == null)
+                return Unauthorized("Invalid! Token is missing");
+
+            var userId = Guid.Parse(userClaim.Value);
+
+            var cartItem = await _context.CartItems
+                .FirstOrDefaultAsync(c => c.CartItemId == cartItemId && c.UserId == userId);
+
+            if (cartItem == null)
+                return NotFound("Cart item not found");
+
+            var book = await _context.Books.FindAsync(cartItem.BookId);
+            if (book == null)
+                return NotFound("Book not found");
+
+            if (book.Quantity <= updateCartItem.Quantity)
+                return BadRequest("Not enough quantity available");
+
+            cartItem.Quantity = updateCartItem.Quantity;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Cart item updated successfully",
+                statusCode = 200,
+                data = new CartItemDTO
+                {
+                    CartItemId = cartItem.CartItemId,
+                    BookId = cartItem.BookId,
+                    UserId = userId,
+                    Quantity = cartItem.Quantity,
+                    Book = new BookDTO
+                    {
+                        BookId = book.BookId,
+                        Title = book.Title,
+                        Price = book.Price,
+                        Author = book.Author,
+                        Genre = book.Genre,
+                        ISBN = book.ISBN,
+                        Description = book.Description,
+                        ImageUrl = book.ImageUrl,
+                        AvailableInLibrary = book.AvailableInLibrary,
+                        CreatedAt = book.CreatedAt,
+                        Discount = book.Discount,
+                    }
+                }
+            });
+        }
+
         [HttpGet("getcartitems")]
         [Authorize(Policy = "RequireUserRole")]
         public async Task<ActionResult<IEnumerable<CartItemDTO>>> GetCartItems()

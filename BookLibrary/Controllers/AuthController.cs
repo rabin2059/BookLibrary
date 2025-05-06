@@ -36,11 +36,17 @@ namespace BookLibrary.Controllers
                 return BadRequest("Email is already registered");
             }
 
+            //RANDOMLY GENERATE VERIFY CODE 5 DIGITS
+            Random random = new Random();
+            int verifyCode = random.Next(10000, 99999);
+
+
             // Create new user
             var user = new User
             {
                 Username = register.Username,
                 Email = register.Email,
+                VerificationCode = verifyCode,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(register.Password)
             };
 
@@ -52,6 +58,7 @@ namespace BookLibrary.Controllers
 
             // Add user to database
             _context.Users.Add(user);
+
             await _context.SaveChangesAsync();
             // Return user DTO with token
             return Ok(new{
@@ -107,5 +114,45 @@ namespace BookLibrary.Controllers
                 }
             });
         }
+
+
+        //verify user
+        [HttpPut("verify")]
+        public async Task<ActionResult<object>> VerifyUser(RegisterDTO registerDTO)
+        {
+            // Find user by ID
+            var user = await _context.Users.FindAsync(registerDTO.Id);
+
+            // Check if user exists
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Check if verification code matches
+            if (user.VerificationCode != registerDTO.VerificationCode)
+            {
+                return BadRequest("Invalid verification code");
+            }
+
+            // Update user status to verified
+            user.IsVerified = true;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                status = "success",
+                message = "User verified successfully",
+                statusCode = 200,
+                User = new UserDTO
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Role = user.Role
+                }
+            });
+        }
+
 }
 }

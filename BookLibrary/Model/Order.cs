@@ -22,15 +22,17 @@ public class Order
     public decimal OriginalTotal { get; set; }
 
     [Required]
-    public decimal DiscountRate { get; set; } // e.g., 0.05 or 0.15
+    public decimal DiscountRate { get; set; } 
 
     [Required]
     public decimal FinalTotal { get; set; }
 
     [Required]
-    public string Status { get; set; } = "Pending"; // or "Cancelled", "Completed"
+    public string Status { get; set; } = "Pending"; 
 
-    public string? ClaimCode { get; set; } // To match the scenario
+    public string? ClaimCode { get; set; }
+    
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<OrderItem> OrderItems { get; set; }
 }

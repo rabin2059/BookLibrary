@@ -168,6 +168,9 @@ namespace BookLibrary.Migrations
                     b.Property<string>("ClaimCode")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("DiscountRate")
                         .HasColumnType("numeric");
 
@@ -212,6 +215,9 @@ namespace BookLibrary.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("OrderItemId");
 
                     b.HasIndex("BookId");
@@ -219,6 +225,37 @@ namespace BookLibrary.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Rating", b =>
+                {
+                    b.Property<Guid>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.User", b =>
@@ -252,6 +289,9 @@ namespace BookLibrary.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<int>("VerificationCode")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -298,7 +338,7 @@ namespace BookLibrary.Migrations
             modelBuilder.Entity("BookLibrary.Model.Order", b =>
                 {
                     b.HasOne("BookLibrary.Model.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -323,6 +363,25 @@ namespace BookLibrary.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("BookLibrary.Model.Rating", b =>
+                {
+                    b.HasOne("BookLibrary.Model.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Model.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookLibrary.Model.WhiteList", b =>
@@ -359,6 +418,10 @@ namespace BookLibrary.Migrations
             modelBuilder.Entity("BookLibrary.Model.User", b =>
                 {
                     b.Navigation("AddtoCarts");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
 
                     b.Navigation("Whitelists");
                 });

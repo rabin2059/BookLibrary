@@ -40,11 +40,12 @@ namespace BookLibrary.Controllers
                 StartTime = announcement.StartTime,
                 Color = announcement.Color,
                 TextColor = announcement.TextColor,
-                EndTime = announcement.EndTime
+                EndTime = announcement.EndTime,
+                IsPinned = announcement.IsPinned ? true : false,
             };
 
             _context.Announcements.Add(newAnnouncement);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();  
 
             return Ok(new
             {
@@ -132,6 +133,7 @@ namespace BookLibrary.Controllers
             existingAnnouncement.EndTime = announcement.EndTime;
             existingAnnouncement.Color = announcement.Color;
             existingAnnouncement.TextColor = announcement.TextColor;
+            existingAnnouncement.IsPinned = announcement.IsPinned ? true : false;
 
             await _context.SaveChangesAsync();
 

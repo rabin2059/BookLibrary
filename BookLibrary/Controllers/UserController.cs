@@ -19,7 +19,7 @@ namespace BookLibrary.Controllers
         {
             _context = context;
         }
-        
+
 
         [HttpGet]
         [HttpGet("getallusers")]
@@ -46,7 +46,7 @@ namespace BookLibrary.Controllers
             // Get the current user's ID and role from the token
             var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
-            if(userClaim == null) return Unauthorized("Invalid!! Token is missing");
+            if (userClaim == null) return Unauthorized("Invalid!! Token is missing");
 
             var userId = int.Parse(userClaim.Value);
 
@@ -122,6 +122,38 @@ namespace BookLibrary.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        [Authorize(Policy = "RequireUserRole")]
+        public async Task<ActionResult> GetDiscount()
+        {   
+            var userClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userClaim == null)
+                return Unauthorized("Invalid! Token is missing");
+
+            var userId = Guid.Parse(userClaim.Value);
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+                return NotFound("User not found");
+
+            var hasDiscount = user.CompleteOrderCount == 10;
+
+            var discountRate = 0.10m; // 10% discount
+
+            return Ok(new
+            {
+                status = "success",
+                message = "Discount information retrieved successfully",
+                statusCode = 200,
+                data = new
+                {
+                    hasDiscount,
+                    discountRate
+                }
+            });
+        }
     }
+
 
 }
